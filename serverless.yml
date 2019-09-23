@@ -1,0 +1,20 @@
+service: serverless
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: dev
+  region: us-east-1
+
+functions:
+ app:
+  handler: app.server
+  events: #Define the events that trigger the lambda
+   - http: #Define an HTTP endpoint that respond to the / route
+      path: /
+      method: ANY #Define the HTTP methods to be used (GET/POST)
+      cors: true
+   - http: #Define an HTTP endpoin that respond to any routes
+      path: /{proxy+}
+      method: ANY
+      cors: true
